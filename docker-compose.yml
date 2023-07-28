@@ -14,6 +14,9 @@ services:
             - redis
         networks:
             - laravel
+        environment:
+            - UID=${UID}
+            - GID=${GID}
 
     # nginx
     nginx:
@@ -32,10 +35,10 @@ services:
         image: mysql:5.7.22
         restart: unless-stopped
         environment:
-            MYSQL_DATABASE: ${DB_DATABASE:-laravel}
-            MYSQL_ROOT_PASSWORD: ${DB_PASSWORD:-root}
-            MYSQL_PASSWORD: ${DB_PASSWORD:-userpass}
-            MYSQL_USER: ${DB_USERNAME:-username}
+            MYSQL_DATABASE: ${DB_DATABASE:-laravel_10}
+            MYSQL_ROOT_PASSWORD: ${DB_PASSWORD:-12345678}
+            MYSQL_PASSWORD: ${DB_PASSWORD:-12345678}
+            MYSQL_USER: ${DB_USERNAME:-joallisson}
         volumes:
             - ./.docker/mysql/dbdata:/var/lib/mysql
         ports:
@@ -55,6 +58,9 @@ services:
             - app
         networks:
             - laravel
+        environment:
+            - UID=${UID}
+            - GID=${GID}
 
     # redis
     redis:
