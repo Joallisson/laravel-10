@@ -18,6 +18,7 @@ use App\Http\Controllers\Admin\{SupportController};
 Route::get('/', function () {
     return view('welcome');
 });
+Route::delete('/supports/{id}', [SupportController::class, 'destroy'])->name('supports.destroy');
 Route::put('/supports/{id}', [SupportController::class, 'update'])->name('supports.update');
 Route::get('/supports/{id}/edit', [SupportController::class, 'edit'])->name('supports.edit');
 Route::get('/supports/create', [SupportController::class, 'create'])->name('supports.create');
