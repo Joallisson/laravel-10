@@ -5,6 +5,7 @@ namespace App\Repositories;
 use App\DTO\CreateSupportDTO;
 use App\DTO\UpdateSupportDTO;
 use App\Models\Support;
+use stdClass;
 
 class SupportEloquentORM implements SupportRepositoryInterface{
 
@@ -19,7 +20,7 @@ class SupportEloquentORM implements SupportRepositoryInterface{
                         $query->where('subject', $filter)
                               ->orWhere('body', 'like', "%{$filter}%");
                     })
-                    ->all()
+                    ->get()
                     ->toArray();
     }
     public function findOne(string $id): stdClass|null
@@ -38,10 +39,20 @@ class SupportEloquentORM implements SupportRepositoryInterface{
     }
     public function new(CreateSupportDTO $dto): stdClass
     {
+        $support = $this->model->create(
+            (array) $dto
+        );
 
+        return (object) $support->toArray();
     }
     public function update(UpdateSupportDTO $dto): stdClass|null
     {
-        return null;
+        if(!$support = $this->model->find($dto->id)){
+            return null;
+        }
+
+        $support->update((array) $dto);
+
+        return (object) $support->toArray();
     }
 }

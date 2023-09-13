@@ -19,24 +19,24 @@ class SupportService
 
     public function getAll(string $filter = null): array
     {
-        return $this->repository->getAll($filter);
+        return (array) $this->request->getAll($filter);
     }
 
     public function findOne(string $id): stdClass|null
     {
-        return $this->repository->findOne($id);
+        return $this->request->findOne($id);
     }
 
     public function new(CreateSupportDTO $dto): stdClass {
-        return $this->repository->new($dto);
+        return $this->request->new($dto);
     }
 
     public function update(UpdateSupportDTO $dto): stdClass|null {
-        return $this->repository->update($dto);
+        return $this->request->update($dto);
     }
 
     public function delete(string $id): void
     {
-        return $this->repository->delete($id);
+        $this->request->delete($id);
     }
 }
